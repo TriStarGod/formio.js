@@ -33,7 +33,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/EventEmitter.js~EventEmitter.html">EventEmitter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Form.js~Form.html">Form</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/FormBuilder.js~FormBuilder.html">FormBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WizardBuilder.js~WizardBuilder.html">WizardBuilder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-embed">embed</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addons">addons</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/addons/FormioAddon.js~FormioAddon.html">FormioAddon</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-editForms">editForms</a></span></span></li>
@@ -194,12 +193,12 @@
 import { expect } from &apos;chai&apos;;
 import sinon from &apos;sinon&apos;;
 import _ from &apos;lodash&apos;;
-import each from &apos;lodash/each&apos;;
 import i18next from &apos;i18next&apos;;
 import Harness from &apos;../test/harness&apos;;
 import FormTests from &apos;../test/forms&apos;;
 import Webform from &apos;./Webform&apos;;
 import &apos;flatpickr&apos;;
+import AllComponents from &apos;./components&apos;;
 import { Formio } from &apos;./Formio&apos;;
 import {
   settingErrors,
@@ -229,7 +228,6 @@ import {
   formWithCustomFormatDate,
   tooltipActivateCheckbox,
 } from &apos;../test/formtest&apos;;
-// import DataGridOnBlurValidation from &apos;../test/forms/dataGridOnBlurValidation&apos;;
 import UpdateErrorClassesWidgets from &apos;../test/forms/updateErrorClasses-widgets&apos;;
 import nestedModalWizard from &apos;../test/forms/nestedModalWizard&apos;;
 import disableSubmitButton from &apos;../test/forms/disableSubmitButton&apos;;
@@ -262,17 +260,36 @@ import formWithEventLogicInHiddenComponent from &apos;../test/forms/formWithEven
 import * as FormioUtils from &apos;./utils/utils&apos;;
 import htmlRenderMode from &apos;../test/forms/htmlRenderMode&apos;;
 import optionalSanitize from &apos;../test/forms/optionalSanitize&apos;;
-import formWithCheckboxRadioaType from &apos;../test/forms/formWithCheckboxRadioType&apos;;
 import formsWithNewSimpleConditions from &apos;../test/forms/formsWithNewSimpleConditions&apos;;
 import formWithRadioInsideDataGrid from &apos;../test/forms/formWithRadioInsideDataGrid&apos;;
 import formWithCheckboxRadioType from &apos;../test/forms/formWithCheckboxRadioType&apos;;
+import formWithFormController from &apos;../test/forms/formWithFormController&apos;;
+import calculateValueOnServerForEditGrid from &apos;../test/forms/calculateValueOnServerForEditGrid&apos;;
 
 global.requestAnimationFrame = (cb) =&gt; cb();
 global.cancelAnimationFrame = () =&gt; {};
 
-/* eslint-disable max-statements */
+if (_.has(Formio, &apos;Components.setComponents&apos;)) {
+  Formio.Components.setComponents(AllComponents);
+}
+
+/* eslint-disable max-statements  */
 describe(&apos;Webform tests&apos;, function() {
   this.retries(3);
+
+  it(&apos;Should execute form controller&apos;, function(done) {
+    Formio.createForm(formWithFormController).then((form) =&gt; {
+      setTimeout(() =&gt; {
+        const textField = form.getComponent(&apos;textField&apos;);
+
+        assert.equal(textField.getValue(), &apos;Hello World&apos;);
+        assert.equal(textField.disabled, true);
+        assert.equal(form.components[0].disabled, true);
+
+        done();
+      }, 300);
+    }).catch((err) =&gt; done(err));
+  });
 
   it(&apos;Should set radio components value inside data grid correctly&apos;, function(done) {
     Formio.createForm(formWithRadioInsideDataGrid).then((form) =&gt; {
@@ -284,6 +301,34 @@ describe(&apos;Webform tests&apos;, function() {
           done();
       }, 200);
     }).catch((err) =&gt; done(err));
+  });
+
+  it(&apos;Should not fall into setValue calls loop when doing value calculation on server&apos;, done =&gt; {
+    const formElement = document.createElement(&apos;div&apos;);
+    // Set a spy for Edit Grid setValue method
+    const spy = sinon.spy(Formio.Components.components.editgrid.prototype, &apos;setValue&apos;);
+
+    Formio.createForm(formElement, calculateValueOnServerForEditGrid, { server: true, noDefaults: true } )
+      .then(form =&gt; {
+        assert.deepEqual(form.data, { editGrid: [{ fielda: undefined, fieldb: &apos;test&apos; }] });
+        assert.equal(spy.callCount, 1);
+
+        const first = form.getComponent(&apos;first&apos;);
+
+        first.setValue(&apos;test value&apos;);
+
+        setTimeout(() =&gt; {
+          assert.deepEqual(form.data, {
+            first: &apos;test value&apos;,
+            editGrid: [{ fielda: &apos;test value&apos;, fieldb: &apos;test&apos; }]
+          });
+          assert.equal(spy.callCount, 2);
+          // Remove the spy from setValue method
+          Formio.Components.components.editgrid.prototype.setValue.restore();
+          done();
+        }, 300);
+      })
+      .catch(done);
   });
 
   it(&apos;Should fire blur and focus events for address and select components&apos;, function(done) {
@@ -1565,10 +1610,12 @@ describe(&apos;Webform tests&apos;, function() {
         }
       ]
     }).then(() =&gt; {
-      const label = formElement.querySelector(&apos;.control-label&apos;);
+      const label = formElement.querySelector(&apos;.col-form-label&apos;);
       assert.equal(label.innerHTML.trim(), &apos;Spanish Label&apos;);
       done();
-    }).catch(done);
+    }).catch((err) =&gt; {
+      done(err);
+    });
   });
 
   it(&apos;Should treat double colons as i18next namespace separators&apos;, (done) =&gt; {
@@ -1655,7 +1702,7 @@ describe(&apos;Webform tests&apos;, function() {
       ]
     }).then(() =&gt; {
       translateForm.language = &apos;es&apos;;
-      const label = formElement.querySelector(&apos;.control-label&apos;);
+      const label = formElement.querySelector(&apos;.col-form-label&apos;);
       assert.equal(label.innerHTML.trim(), &apos;Spanish Label&apos;);
       done();
     }).catch(done);
@@ -1688,7 +1735,7 @@ describe(&apos;Webform tests&apos;, function() {
       ]
     }).then(() =&gt; {
       translateForm.language = &apos;fr&apos;;
-      const label = formElement.querySelector(&apos;.control-label&apos;);
+      const label = formElement.querySelector(&apos;.col-form-label&apos;);
       assert.equal(label.innerHTML.trim(), &apos;French Label&apos;);
       done();
     }).catch(done);
@@ -1711,7 +1758,7 @@ describe(&apos;Webform tests&apos;, function() {
       ]
     }).then(() =&gt; {
       translateForm.addLanguage(&apos;es&apos;, { &apos;Default Label&apos;: &apos;Spanish Label&apos; }, true);
-      const label = formElement.querySelector(&apos;.control-label&apos;);
+      const label = formElement.querySelector(&apos;.col-form-label&apos;);
       assert.equal(label.innerHTML.trim(), &apos;Spanish Label&apos;);
       done();
     }).catch(done);
@@ -1742,10 +1789,10 @@ describe(&apos;Webform tests&apos;, function() {
         }, done)
         .then(() =&gt; {
           expect(form.options.language).to.equal(&apos;ru&apos;);
-          expect(formElement.querySelector(&apos;.control-label&apos;).innerHTML.trim()).to.equal(&apos;Russian Label&apos;);
+          expect(formElement.querySelector(&apos;.col-form-label&apos;).innerHTML.trim()).to.equal(&apos;Russian Label&apos;);
           form.redraw();
           expect(form.options.language).to.equal(&apos;ru&apos;);
-          expect(formElement.querySelector(&apos;.control-label&apos;).innerHTML.trim()).to.equal(&apos;Russian Label&apos;);
+          expect(formElement.querySelector(&apos;.col-form-label&apos;).innerHTML.trim()).to.equal(&apos;Russian Label&apos;);
           done();
         }, done)
         .catch(done);
@@ -1868,7 +1915,7 @@ describe(&apos;Webform tests&apos;, function() {
       assert.equal(translateForm.i18next.language, &apos;es&apos;);
       assert.equal(translateForm.i18next, instance);
 
-      const label = formElement.querySelector(&apos;.control-label&apos;);
+      const label = formElement.querySelector(&apos;.col-form-label&apos;);
       assert.equal(label.innerHTML.trim(), &apos;Spanish Label&apos;);
     });
   });
@@ -3969,16 +4016,13 @@ describe(&apos;Webform tests&apos;, function() {
     .catch((err) =&gt; done(err));
   });
 
-  each(FormTests, (formTest) =&gt; {
+  for (const formTest of FormTests) {
     const useDoneInsteadOfPromise = formTest.useDone;
 
     if (useDoneInsteadOfPromise) {
       describe(formTest.title || &apos;&apos;, () =&gt; {
-        each(formTest.tests, (formTestTest, title) =&gt; {
-          if (title === &apos;Email Action Test&apos;) {
-            console.log(&apos;Email Action Test&apos;);
-          }
-
+        for (const title in formTest.tests) {
+          const formTestTest = formTest.tests[title];
           it(title, function(done) {
             const self = this;
             const formElement = document.createElement(&apos;div&apos;);
@@ -3988,18 +4032,19 @@ describe(&apos;Webform tests&apos;, function() {
                 form = null;
                 formElement.innerHTML = &apos;&apos;;
                 if (error) {
-                  throw new Error(error);
+                  return done(error);
                 }
                 done();
               }, self);
             });
           });
-        });
+        }
       });
     }
     else {
       describe(formTest.title || &apos;&apos;, () =&gt; {
-        each(formTest.tests, (formTestTest, title) =&gt; {
+        for (const title in formTest.tests) {
+          const formTestTest = formTest.tests[title];
           it(title, function() {
             const formElement = document.createElement(&apos;div&apos;);
             const form = new Webform(formElement, { language: &apos;en&apos; });
@@ -4012,10 +4057,10 @@ describe(&apos;Webform tests&apos;, function() {
               });
             });
           });
-        });
+        }
       });
     }
-  });
+  }
 });
 
 // describe(&apos;Test the saveDraft and restoreDraft feature&apos;, () =&gt; {

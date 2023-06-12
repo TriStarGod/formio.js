@@ -1,130 +1,8 @@
 {
-  "coverage": "6.16%",
-  "expectCount": 925,
+  "coverage": "6.28%",
+  "expectCount": 907,
   "actualCount": 57,
   "files": {
-    "src/CDN.js": {
-      "expectCount": 14,
-      "actualCount": 0,
-      "undocumentLines": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        26,
-        31,
-        37,
-        43,
-        49,
-        55,
-        60,
-        71,
-        74
-      ]
-    },
-    "src/Embed.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
-    },
-    "src/EventEmitter.js": {
-      "expectCount": 5,
-      "actualCount": 0,
-      "undocumentLines": [
-        3,
-        4,
-        17,
-        25,
-        29
-      ]
-    },
-    "src/Form.js": {
-      "expectCount": 24,
-      "actualCount": 7,
-      "undocumentLines": [
-        8,
-        37,
-        38,
-        39,
-        42,
-        44,
-        45,
-        64,
-        97,
-        119,
-        143,
-        167,
-        200,
-        208,
-        244,
-        281,
-        292
-      ]
-    },
-    "src/FormBuilder.js": {
-      "expectCount": 4,
-      "actualCount": 0,
-      "undocumentLines": [
-        5,
-        6,
-        7,
-        17
-      ]
-    },
-    "src/Formio.js": {
-      "expectCount": 4,
-      "actualCount": 0,
-      "undocumentLines": [
-        10,
-        11,
-        44,
-        71
-      ]
-    },
-    "src/Formio.unit.js": {
-      "expectCount": 10,
-      "actualCount": 0,
-      "undocumentLines": [
-        11,
-        12,
-        13,
-        14,
-        19,
-        20,
-        21,
-        22,
-        24,
-        28
-      ]
-    },
-    "src/WizardBuilder.js": {
-      "expectCount": 19,
-      "actualCount": 0,
-      "undocumentLines": [
-        13,
-        14,
-        29,
-        35,
-        101,
-        105,
-        109,
-        114,
-        127,
-        131,
-        138,
-        161,
-        193,
-        203,
-        223,
-        242,
-        265,
-        273,
-        283
-      ]
-    },
     "src/addons/FormioAddon.js": {
       "expectCount": 11,
       "actualCount": 0,
@@ -161,80 +39,24 @@
         25
       ]
     },
-    "src/components/Components.js": {
-      "expectCount": 13,
+    "src/CDN.js": {
+      "expectCount": 14,
       "actualCount": 0,
       "undocumentLines": [
         5,
         6,
+        7,
         8,
-        10,
-        14,
-        18,
-        22,
+        9,
         26,
-        32,
-        39,
-        51,
+        31,
+        37,
+        43,
+        49,
         55,
-        59
-      ]
-    },
-    "src/components/_classes/component/Component.form.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        13
-      ]
-    },
-    "src/components/_classes/component/editForm/utils.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
-    },
-    "src/components/_classes/field/Field.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        3,
-        4
-      ]
-    },
-    "src/components/_classes/list/ListComponent.form.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        4
-      ]
-    },
-    "src/components/_classes/nested/NestedComponent.form.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
-    },
-    "src/components/_classes/nested/NestedComponent.unit.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        12
-      ]
-    },
-    "src/components/_classes/nestedarray/NestedArrayComponent.unit.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        5
-      ]
-    },
-    "src/components/_classes/nesteddata/NestedDataComponent.unit.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        5
+        60,
+        71,
+        74
       ]
     },
     "src/components/address/Address.form.js": {
@@ -295,6 +117,25 @@
         5
       ]
     },
+    "src/components/Components.js": {
+      "expectCount": 13,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        10,
+        14,
+        18,
+        22,
+        26,
+        32,
+        39,
+        51,
+        55,
+        59
+      ]
+    },
     "src/components/container/Container.form.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -353,9 +194,9 @@
         101,
         105,
         139,
-        150,
-        158,
-        184
+        153,
+        161,
+        187
       ]
     },
     "src/components/datagrid/DataGrid.form.js": {
@@ -521,13 +362,6 @@
         7
       ]
     },
-    "src/components/panel/Panel.form.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        6
-      ]
-    },
     "src/components/panel/editForm/Panel.edit.conditional.js": {
       "expectCount": 6,
       "actualCount": 0,
@@ -540,11 +374,18 @@
         20
       ]
     },
+    "src/components/panel/Panel.form.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
     "src/components/password/Password.form.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        8
+        7
       ]
     },
     "src/components/password/Password.js": {
@@ -629,19 +470,19 @@
         35
       ]
     },
-    "src/components/select/Select.form.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        6
-      ]
-    },
     "src/components/select/fixtures/comp3.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
         1,
         17
+      ]
+    },
+    "src/components/select/Select.form.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
       ]
     },
     "src/components/selectboxes/SelectBoxes.form.js": {
@@ -749,14 +590,14 @@
         43,
         51,
         55,
-        71,
-        109,
-        117,
-        127,
-        143,
-        156,
-        160,
-        166
+        73,
+        111,
+        119,
+        129,
+        145,
+        158,
+        162,
+        168
       ]
     },
     "src/components/textarea/TextArea.form.js": {
@@ -918,6 +759,63 @@
         39
       ]
     },
+    "src/components/_classes/component/Component.form.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        12
+      ]
+    },
+    "src/components/_classes/component/editForm/utils.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/components/_classes/field/Field.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/components/_classes/list/ListComponent.form.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/components/_classes/nested/NestedComponent.form.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/components/_classes/nested/NestedComponent.unit.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        12
+      ]
+    },
+    "src/components/_classes/nestedarray/NestedArrayComponent.unit.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/components/_classes/nesteddata/NestedDataComponent.unit.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
     "src/contrib/edittable/EditTable.form.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -1056,6 +954,58 @@
         25
       ]
     },
+    "src/Embed.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/EventEmitter.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        17,
+        25,
+        29
+      ]
+    },
+    "src/Form.js": {
+      "expectCount": 25,
+      "actualCount": 7,
+      "undocumentLines": [
+        8,
+        37,
+        38,
+        39,
+        42,
+        47,
+        48,
+        67,
+        100,
+        122,
+        146,
+        173,
+        206,
+        214,
+        250,
+        287,
+        298,
+        313
+      ]
+    },
+    "src/FormBuilder.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        7,
+        17
+      ]
+    },
     "src/formio.form.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -1063,16 +1013,30 @@
         49
       ]
     },
-    "src/providers/Providers.js": {
-      "expectCount": 6,
+    "src/Formio.js": {
+      "expectCount": 4,
       "actualCount": 0,
       "undocumentLines": [
-        7,
-        8,
+        10,
+        11,
+        44,
+        71
+      ]
+    },
+    "src/Formio.unit.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        12,
+        13,
         14,
         19,
-        23,
-        29
+        20,
+        21,
+        22,
+        24,
+        28
       ]
     },
     "src/providers/address/AddressProvider.js": {
@@ -1141,6 +1105,18 @@
       "actualCount": 0,
       "undocumentLines": [
         3
+      ]
+    },
+    "src/providers/Providers.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        14,
+        19,
+        23,
+        29
       ]
     },
     "src/providers/storage/azure.js": {
@@ -1214,6 +1190,20 @@
         18
       ]
     },
+    "src/templates/bootstrap/iconClass.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/templates/bootstrap5/iconClass.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
     "src/templates/Templates.js": {
       "expectCount": 10,
       "actualCount": 0,
@@ -1247,18 +1237,11 @@
         17
       ]
     },
-    "src/templates/bootstrap/iconClass.js": {
-      "expectCount": 1,
-      "actualCount": 0,
+    "src/utils/calendarUtils.js": {
+      "expectCount": 4,
+      "actualCount": 3,
       "undocumentLines": [
-        1
-      ]
-    },
-    "src/templates/bootstrap5/iconClass.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        1
+        4
       ]
     },
     "src/utils/ChoicesWrapper.js": {
@@ -1281,20 +1264,6 @@
         198,
         207,
         215
-      ]
-    },
-    "src/utils/Evaluator.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
-    },
-    "src/utils/calendarUtils.js": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        4
       ]
     },
     "src/utils/conditionOperators/ConditionOperator.js": {
@@ -1388,6 +1357,13 @@
         5,
         9,
         13
+      ]
+    },
+    "src/utils/conditionOperators/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        20
       ]
     },
     "src/utils/conditionOperators/IsDateEqual.js": {
@@ -1492,11 +1468,11 @@
         13
       ]
     },
-    "src/utils/conditionOperators/index.js": {
+    "src/utils/Evaluator.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        20
+        3
       ]
     },
     "src/utils/formUtils.js": {
@@ -1524,18 +1500,6 @@
         10,
         11,
         12
-      ]
-    },
-    "src/validator/Rules.js": {
-      "expectCount": 6,
-      "actualCount": 0,
-      "undocumentLines": [
-        3,
-        4,
-        6,
-        10,
-        14,
-        18
       ]
     },
     "src/validator/conjunctions/index.js": {
@@ -1612,6 +1576,34 @@
         3,
         4,
         6
+      ]
+    },
+    "src/validator/rules/index.js": {
+      "expectCount": 22,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
       ]
     },
     "src/validator/rules/JSON.js": {
@@ -1807,32 +1799,16 @@
         6
       ]
     },
-    "src/validator/rules/index.js": {
-      "expectCount": 22,
+    "src/validator/Rules.js": {
+      "expectCount": 6,
       "actualCount": 0,
       "undocumentLines": [
-        1,
-        2,
         3,
         4,
-        5,
         6,
-        7,
-        8,
-        9,
         10,
-        11,
-        12,
-        13,
         14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22
+        18
       ]
     },
     "src/validator/transformers/index.js": {

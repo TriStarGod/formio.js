@@ -1,6 +1,10 @@
-import { Form } from './form';
+import type { Form, FormDisplayType } from "./form";
+import type { Element } from "./element";
+
+export type FormBuilderOptionsType = unknown;
 
 export class FormBuilder extends Form {
-  constructor(element: any, form: any, options: any);
-  create(display: string): any;
+  constructor(element: Element, form: Form, options: FormBuilderOptionsType);
+  create(display: FormDisplayType): unknown;
+  schema: unknown;
 }

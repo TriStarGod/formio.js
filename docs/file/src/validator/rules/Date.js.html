@@ -33,7 +33,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/EventEmitter.js~EventEmitter.html">EventEmitter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Form.js~Form.html">Form</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/FormBuilder.js~FormBuilder.html">FormBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WizardBuilder.js~WizardBuilder.html">WizardBuilder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-embed">embed</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addons">addons</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/addons/FormioAddon.js~FormioAddon.html">FormioAddon</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-editForms">editForms</a></span></span></li>
@@ -196,7 +195,7 @@ module.exports = class DateRule extends Rule {
   defaultMessage = &apos;{{field}} is not a valid date.&apos;;
 
   check(value) {
-    if (!value || value instanceof Date) {
+    if (!value) {
       return true;
     }
     if (value === &apos;Invalid date&apos; || value === &apos;Invalid Date&apos;) {
@@ -205,7 +204,7 @@ module.exports = class DateRule extends Rule {
     if (typeof value === &apos;string&apos;) {
       value = new Date(value);
     }
-    return value.toString() !== &apos;Invalid Date&apos;;
+    return value instanceof Date === true &amp;&amp; value.toString() !== &apos;Invalid Date&apos;;
   }
 };
 </code></pre>

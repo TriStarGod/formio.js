@@ -33,7 +33,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/EventEmitter.js~EventEmitter.html">EventEmitter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Form.js~Form.html">Form</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/FormBuilder.js~FormBuilder.html">FormBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WizardBuilder.js~WizardBuilder.html">WizardBuilder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-embed">embed</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addons">addons</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/addons/FormioAddon.js~FormioAddon.html">FormioAddon</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-editForms">editForms</a></span></span></li>
@@ -191,8 +190,10 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/components/checkbox/Checkbox.unit.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;power-assert&apos;;
+import _ from &apos;lodash&apos;;
 
 import Harness from &apos;../../../test/harness&apos;;
+import { Formio } from &apos;./../../Formio&apos;;
 import CheckBoxComponent from &apos;./Checkbox&apos;;
 
 import {
@@ -200,6 +201,7 @@ import {
   customDefaultComponent,
   comp2,
   comp3,
+  comp4
 } from &apos;./fixtures&apos;;
 
 describe(&apos;Checkbox Component&apos;, () =&gt; {
@@ -258,6 +260,27 @@ describe(&apos;Checkbox Component&apos;, () =&gt; {
       assert(label.className.includes(&apos;field-required&apos;));
       done();
     }).catch(done);
+  });
+
+  it(&apos;Should hide component with conditional logic when checkbox component with the radio input type is unchecked&apos;, (done) =&gt;  {
+    const form = _.cloneDeep(comp4);
+    const element = document.createElement(&apos;div&apos;);
+
+    Formio.createForm(element, form).then(form =&gt; {
+      const radioCheckbox = form.getComponent(&apos;p1&apos;);
+      const contentComp = form.getComponent(&apos;p1Content&apos;);
+      assert.equal(contentComp.visible, false);
+      const radio = Harness.testElements(radioCheckbox, &apos;input[type=&quot;radio&quot;]&apos;, 1)[0];
+      Harness.clickElement(radioCheckbox, radio);
+      setTimeout(() =&gt; {
+        assert.equal(contentComp.visible, true);
+        Harness.clickElement(radioCheckbox, radio);
+        setTimeout(() =&gt; {
+          assert.equal(contentComp.visible, false);
+          done();
+        }, 300);
+      }, 300);
+    }).catch((err) =&gt; done(err));
   });
 });
 </code></pre>

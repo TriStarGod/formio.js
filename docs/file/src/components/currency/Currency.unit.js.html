@@ -33,7 +33,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/EventEmitter.js~EventEmitter.html">EventEmitter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Form.js~Form.html">Form</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/FormBuilder.js~FormBuilder.html">FormBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WizardBuilder.js~WizardBuilder.html">WizardBuilder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-embed">embed</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addons">addons</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/addons/FormioAddon.js~FormioAddon.html">FormioAddon</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-editForms">editForms</a></span></span></li>
@@ -197,6 +196,7 @@ import {
   comp1,
   comp2,
   comp3,
+  comp4,
 } from &apos;./fixtures&apos;;
 
 describe(&apos;Currency Component&apos;, () =&gt; {
@@ -508,6 +508,14 @@ describe(&apos;Currency Component&apos;, () =&gt; {
       Harness.testSetInput(component, 1234567890.123456789, 1234567890.12, &apos;1.234.567.890,12&#xA0;$&apos;);
       Harness.testSetInput(component, -1234567890.123456789, -1234567890.12, &apos;-1.234.567.890,12&#xA0;$&apos;);
     });
+  });
+
+  it(&apos;Should return value as string properly for multiple values&apos;, (done) =&gt; {
+    Harness.testCreate(CurrencyComponent, comp4).then((component) =&gt; {
+      component.refs.input = null;
+      assert.equal(component.getValueAsString([100, 200, 300, 500]), &apos;$100.00, $200.00, $300.00, $500.00&apos;);
+      done();
+    }).catch(done);
   });
 });
 </code></pre>

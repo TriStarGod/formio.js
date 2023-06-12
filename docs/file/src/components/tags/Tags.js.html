@@ -33,7 +33,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/EventEmitter.js~EventEmitter.html">EventEmitter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Form.js~Form.html">Form</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/FormBuilder.js~FormBuilder.html">FormBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WizardBuilder.js~WizardBuilder.html">WizardBuilder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-embed">embed</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addons">addons</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/addons/FormioAddon.js~FormioAddon.html">FormioAddon</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-editForms">editForms</a></span></span></li>
@@ -214,7 +213,7 @@ export default class TagsComponent extends Input {
       title: &apos;Tags&apos;,
       icon: &apos;tags&apos;,
       group: &apos;advanced&apos;,
-      documentation: &apos;/userguide/forms/form-components#tags&apos;,
+      documentation: &apos;/userguide/form-building/advanced-components#tags&apos;,
       weight: 30,
       schema: TagsComponent.schema()
     };
@@ -249,7 +248,9 @@ export default class TagsComponent extends Input {
     if (!element) {
       return;
     }
-    element.setAttribute(&apos;dir&apos;, this.i18next.dir());
+    if (this.i18next) {
+      element.setAttribute(&apos;dir&apos;, this.i18next.dir());
+    }
     if (this.choices) {
       this.choices.destroy();
     }
@@ -299,11 +300,11 @@ export default class TagsComponent extends Input {
   }
 
   detach() {
-    super.detach();
     if (this.choices) {
       this.choices.destroy();
       this.choices = null;
     }
+    super.detach();
   }
 
   normalizeValue(value) {
